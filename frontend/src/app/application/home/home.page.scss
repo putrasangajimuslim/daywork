@@ -1,0 +1,125 @@
+// ion-content {
+//     --background: var(--ion-background-color, --td-bg);
+// }
+
+.section-first .notif span {
+    background: red;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    position: absolute;
+    top: -2px;
+    left: 44%;
+    padding: 3px 8px;
+    font-size: 10px;
+}
+
+.left-row {
+    border-left: 1px black solid;
+    width: 0px;
+}
+
+.text-location {
+    font-size: 14px;
+}
+
+.text-attendance {
+    font-size: 14px;
+}
+
+.icon-loc {
+    font-size: 22px;
+}
+
+.icon-task-list {
+    font-size: 22px;
+}
+
+.icon-schedule-list {
+    font-size: 22px;
+}
+
+.bg-grey {
+    background-color: #f8f8f8;
+}
+
+.pic-schedule {
+    background-color: #414141;
+}
+
+.size-icon-chevron-down {
+    font-size: 10px;
+}
+
+// .card-attendance {
+//     background-color: #3E3E3E;
+// }
+
+/* Mengatur tampilan card */
+.card {
+    background-color: #ffffff;
+    padding: 12px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.border-separator {
+    border-top: 1px solid rgb(139, 139, 139);
+    height: 2px;
+    margin-bottom: 12px;
+}
+
+.card-schedule {
+    background-color: #ffffff;
+    padding: 12px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.garis-putus {
+    border-left: 2px dashed #999999;
+    height: 80px;
+}
+
+.menu-rounded {
+    background-color: #E5E8FA;
+}
+
+.btn-attendance-record {
+    background-color: #E5E8FA;
+}
+
+@media screen and (max-width: 202px) {
+    .mobile-style>div:nth-child(4) {
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .mobile-style>div:nth-child(5) {
+        margin-left: 0.5rem;
+        margin-right: 0.5rem;
+    }
+
+    .text-attendance {
+        font-size: 12px;
+    }
+
+    .icon-attendance {
+        width: 12px;
+        height: 12px;
+    }
+
+    .icon-loc {
+        font-size: 20px;
+    }
+
+    .text-location {
+        font-size: 14px;
+    }
+
+    .text-black {
+        color: #0000;
+    }
+}

@@ -1,0 +1,36 @@
+<ion-tabs #tabs (ionTabsDidChange)="setCurrentTab($event)">
+  <ion-tab-bar slot="bottom">
+    <ion-tab-button tab="home" *ngIf="selectTab === 'home'">
+      <div class="w-full flex bg-default p-1 rounded-full">
+        <ion-icon name="home-sharp" class="text-xl m-auto text-white"></ion-icon>
+        <!-- <p class="text-white">Home</p> -->
+      </div>
+    </ion-tab-button>
+
+    <ion-tab-button tab="home" *ngIf="selectTab !== 'home'">
+      <ion-icon name="home-outline"></ion-icon>
+    </ion-tab-button>
+
+    <ion-tab-button tab="schedule" *ngIf="selectTab === 'schedule'">
+      <div class="w-full flex bg-default p-1 rounded-full">
+        <ion-icon name="file-tray-full" class="text-xl m-auto text-white"></ion-icon>
+        <!-- <p class="text-white">Schedule</p> -->
+      </div>
+    </ion-tab-button>
+
+    <ion-tab-button tab="schedule" *ngIf="selectTab !== 'schedule'">
+      <ion-icon name="file-tray-full-outline"></ion-icon>
+    </ion-tab-button>
+
+    <ion-tab-button tab="schedule" *ngIf="selectTab === 'profile'">
+      <div class="w-full flex bg-default p-1 rounded-full">
+        <ion-icon name="person" class="text-xl m-auto text-white"></ion-icon>
+        <!-- <p class="text-white">Profile</p> -->
+      </div>
+    </ion-tab-button>
+
+    <ion-tab-button tab="profile" *ngIf="selectTab !== 'profile'">
+      <ion-icon name="person-outline"></ion-icon>
+    </ion-tab-button>
+  </ion-tab-bar>
+</ion-tabs>

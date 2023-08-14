@@ -1,0 +1,152 @@
+<ion-content [fullscreen]="true">
+  <div id="container">
+    <div class="bg-default p-4">
+      <div class="my-4 flex items-center mb-2">
+        <span class="text-white ml-2 mr-1 text-lg">PT Vads Indonesia</span>
+      </div>
+      <div class="my-4 flex items-center mb-8">
+        <ion-icon name="location-outline" class="text-white icon-loc"></ion-icon>
+        <span class="text-white ml-2 mr-1 text-location">Jakarta</span>
+        <ion-icon name="chevron-down-outline" class="text-white size-icon-chevron-down"></ion-icon>
+      </div>
+    </div>
+    <div class="card absolute z-10 top-28 left-0 right-0 m-auto w-10/12">
+      <div class="text-black text-center mb-4 text-sm">Hari ini (kam, 22 Jul 2023)</div>
+      <div class="flex justify-between mb-3">
+        <div class="content-clock-in">
+          <span class="text-sm text-black">Jam Masuk</span>
+          <p class="text-black">-- : --</p>
+        </div>
+        <div class="content-clock-out">
+          <span class="text-sm text-black">Jam Keluar</span>
+          <p class="text-black">-- : --</p>
+        </div>
+      </div>
+      <div class="btn-attendance-record p-4 w-full rounded-lg flex justify-between" (click)="rekamKehadiran()">
+        <span class="text-sm text-black">Rekam Kehadiran</span>
+        <ion-icon name="arrow-forward-circle-outline" class="text-2xl justify-self-end text-black"></ion-icon>
+      </div>
+    </div>
+
+    <div class="mt-40 p-4">
+      <div class="flex justify-center mb-5">
+        <div class="flex flex-col items-center">
+          <ion-icon name="briefcase-outline" class="w-8 h-8 rounded-md menu-rounded color-default p-2"></ion-icon>
+          <span class="text-sm mt-2 color-default">Cuti</span>
+        </div>
+
+        <div class="flex flex-col items-center mx-4">
+          <ion-icon name="clipboard-outline" class="w-8 h-8 rounded-md menu-rounded color-default p-2"></ion-icon>
+          <span class="text-sm mt-2 color-default">Kehadiran</span>
+        </div>
+
+        <div class="flex flex-col items-center">
+          <ion-icon name="timer-outline" class="w-8 h-8 rounded-md menu-rounded color-default p-2"></ion-icon>
+          <span class="text-sm mt-2 color-default">Lembur</span>
+        </div>
+
+        <!-- <div class="flex flex-col items-center">
+          <ion-icon name="receipt-outline" class="w-8 h-8 rounded-md menu-rounded color-default p-2"></ion-icon>
+          <span class="text-sm mt-2 color-default">Slip Gaji</span>
+        </div> -->
+      </div>
+
+      <div class="flex justify-between items-center mb-3">
+        <div class="text-lg font-semibold mb-2 text-black">Tugas</div>
+        <!-- <div class="flex items-center">
+          <p class="text-sm text-black">Lihat Semua</p>
+          <ion-icon name="arrow-forward" class="ml-3"></ion-icon>
+        </div> -->
+
+        <div class="flex items-center">
+          <ion-icon name="add-circle-outline" class="color-default text-2xl mr-2"></ion-icon>
+          <p class="text-base color-default">Tambah Tugas</p>
+        </div>
+        <!-- <div class="flex items-center" id="trigger-button">
+          <ion-icon name="add-circle-outline" class="color-default text-2xl mr-2"></ion-icon>
+          <p class="text-base color-default">Tambah Tugas</p>
+        </div> -->
+      </div>
+
+      <div class="w-full bg-grey p-4 rounded-md mb-3">
+        <div class="mb-2 font-medium text-black">Landing Page Coinbase</div>
+        <div class="horder-separator"></div>
+
+        <div class="flex justify-between">
+          <div class="flex items-center">
+            <ion-icon name="calendar-outline" class="text-black"></ion-icon>
+            <p class="ml-2 text-sm text-black">10 Nov 2023</p>
+          </div>
+          <div class="text-sm text-black">
+            09:00 - 12:00
+          </div>
+        </div>
+      </div>
+
+      <div class="w-full bg-grey p-4 rounded-md">
+        <div class="mb-2 font-medium text-black">Landing Page Coinbase</div>
+        <div class="horder-separator"></div>
+
+        <div class="flex justify-between">
+          <div class="flex items-center">
+            <ion-icon name="calendar-outline" class="text-black"></ion-icon>
+            <p class="ml-2 text-sm text-black">10 Nov 2023</p>
+          </div>
+          <div class="text-sm text-black">
+            09:00 - 12:00
+          </div>
+        </div>
+      </div>
+
+      <!-- <div class="flex justify-between items-center mb-3">
+        <div class="text-lg font-semibold mb-2">Schedule</div>
+        <div class="flex items-center">
+          <p class="text-sm">Lihat Semua</p>
+          <ion-icon name="arrow-forward" class="ml-3"></ion-icon>
+        </div>
+      </div>
+
+      <div class="content-schedule">
+        <div class="absolute">
+          <span class="text-sm">07 AM</span>
+          <div class="garis-putus mx-4"></div>
+          <span class="text-sm">08 AM</span>
+        </div>
+
+        <div class="card-schedule mx-16">
+          <div class="flex justify-between">
+            <div>
+              <div class="w-36 mb-3">Morning Training With Anna</div>
+              <div class="flex items-center">
+                <ion-icon name="albums" class="color-default text-lg"></ion-icon>
+                <span class="text-sm ml-2">Room 12</span>
+              </div>
+            </div>
+            <div>
+              <ion-icon name="ellipsis-horizontal"></ion-icon>
+            </div>
+          </div>
+        </div>
+      </div> -->
+    </div>
+  </div>
+
+  <!-- <ion-modal [isOpen]="isModalOpen" cssClass="custom-modal">
+    <ng-template>
+      <ion-list>
+        <ion-item>
+          <ion-input
+            [clearInput]="true"
+            placeholder="Isi jenis task yang diinginkan"
+          >
+          </ion-input>
+        </ion-item>
+      </ion-list>
+    </ng-template>
+  </ion-modal> -->
+  <!-- <ion-modal mode="md" trigger="trigger-button" [isOpen]="false" [breakpoints]="[0.1, 0.5, 1]" [initialBreakpoint]="1">
+    <ng-template>
+      <app-new-task></app-new-task>
+    </ng-template>
+  </ion-modal> -->
+</ion-content>
