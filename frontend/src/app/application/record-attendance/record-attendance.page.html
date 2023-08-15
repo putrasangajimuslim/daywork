@@ -8,12 +8,16 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
- <div>
-  <app-map [center]="center" [update]="update" (location)="fetchLocation($event)"></app-map>
- </div>
-
- <!-- <div class="flex items-center p-4">
-  <ion-icon name="location-outline" color="dark" slot="start" class="text-2xl"></ion-icon>
-  <ion-label class="ml-2 text-lg">{{location?.address}}</ion-label>
- </div> -->
+  <div class="content-wrapper">
+    <app-map [center]="center" [update]="update" (location)="fetchLocation($event)"></app-map>
+    <div>
+      <div>
+        Apakah Lokasi Anda Sudah Sesuai?
+      </div>
+      <div>
+        <button class="bg-gray-300 p-3 rounded-md text-black w-full">Refresh</button>
+        <button class="bg-default p-3 rounded-md text-white ml-2 w-full">Ya</button>
+      </div>
+    </div>
+  </div>
 </ion-content>

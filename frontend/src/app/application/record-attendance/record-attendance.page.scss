@@ -1,3 +1,21 @@
-.map {
-  height: 30vh;
+// .map {
+//   height: 30vh;
+// }
+
+.content-wrapper {
+  position: relative;
+}
+
+.button-container {
+  width: 100%;
+  position: relative;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  top: 400px;
+  padding: 10px;
+  display: flex;
+  background-color: white; /* Ganti dengan warna latar belakang yang diinginkan */
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
 }
