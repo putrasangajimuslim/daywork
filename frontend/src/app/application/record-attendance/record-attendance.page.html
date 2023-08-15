@@ -8,9 +8,12 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">record-attendance</ion-title>
-    </ion-toolbar>
-  </ion-header>
+ <div>
+  <app-map [center]="center" [update]="update" (location)="fetchLocation($event)"></app-map>
+ </div>
+
+ <!-- <div class="flex items-center p-4">
+  <ion-icon name="location-outline" color="dark" slot="start" class="text-2xl"></ion-icon>
+  <ion-label class="ml-2 text-lg">{{location?.address}}</ion-label>
+ </div> -->
 </ion-content>

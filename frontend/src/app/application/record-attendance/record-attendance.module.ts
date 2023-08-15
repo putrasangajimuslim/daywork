@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { RecordAttendancePageRoutingModule } from './record-attendance-routing.module';
 
 import { RecordAttendancePage } from './record-attendance.page';
+import { MapComponent } from '../components/map/map/map.component';
 
 @NgModule({
   imports: [
@@ -15,6 +16,6 @@ import { RecordAttendancePage } from './record-attendance.page';
     IonicModule,
     RecordAttendancePageRoutingModule
   ],
-  declarations: [RecordAttendancePage]
+  declarations: [RecordAttendancePage, MapComponent]
 })
 export class RecordAttendancePageModule {}
