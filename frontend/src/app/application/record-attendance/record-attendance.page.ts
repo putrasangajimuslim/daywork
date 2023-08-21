@@ -38,7 +38,6 @@ export class RecordAttendancePage implements OnInit {
 
   checkForUpdate() {
     this.isLoading = true;
-    this.location.location_name = 'Locating...';
     this.isLocationFetched = false;
     this.route.queryParams.subscribe(async(data) => {
       console.log('data: ', data);
@@ -59,14 +58,17 @@ export class RecordAttendancePage implements OnInit {
         setTimeout(async() => {
           await this.initForm(address);
           this.toggleFetched();
-        }, 3000);
+        }, 1000);
       } else {
         this.update = false;
         this.initForm();
       }
     });
-    
+  }
 
+  refreshLocation() {
+    console.log('test');
+    
   }
 
   initForm(address?: any) {
@@ -97,6 +99,7 @@ export class RecordAttendancePage implements OnInit {
   fetchLocation(event: any) {
     this.location = event;
     console.log('location: ', this.location);
+    console.log('event: ', event);
     this.isLocationFetched = true;
   }
   
@@ -104,9 +107,9 @@ export class RecordAttendancePage implements OnInit {
     this.isLocationFetched = !this.isLocationFetched;
   }
 
-  toggleSubmit() {
-    this.isSubmitted = !this.isSubmitted;
-  }
+  // toggleSubmit() {
+  //   this.isSubmitted = !this.isSubmitted;
+  // }
 
   // async onSubmit() {
   //   try {

@@ -69,12 +69,13 @@ export class MapComponent  implements OnInit {
       const location = new googleMaps.LatLng(this.center.lat, this.center.lng);
       this.map = new googleMaps.Map(mapEl, {
         center: location,
-        zoom: 15,
+        zoom: 18,
         scaleControl: false,
         streetViewControl: false,
         zoomControl: false,
         overviewMapControl: false,
         mapTypeControl: false,
+        fullscreenControl: false,
         mapTypeControlOptions: {
           mapTypeIds: [googleMaps.MapTypeId.ROADMAP, 'SwiggyClone']
         }
@@ -89,21 +90,51 @@ export class MapComponent  implements OnInit {
     }
   }
 
+  // addMarker(location: any) {
+  //   let googleMaps: any = this.googleMaps;
+  //   const icon = {
+  //     url: 'assets/icon/location-pin.png',
+  //     scaledSize: new googleMaps.Size(50, 50), 
+  //   };
+  //   this.marker = new googleMaps.Marker({
+  //     position: location,
+  //     map: this.map,
+  //     icon: icon,
+  //     draggable: true,
+  //     animation: googleMaps.Animation.DROP
+  //   });
+  //   this.mapListener = this.googleMaps.event.addListener(this.marker, 'dragend', () => {
+  //     this.getAddress(this.marker.position.lat(), this.marker.position.lng());
+  //   });
+  // }
+
+  async fetchLocation() {
+    try {
+      this.marker.setMap(null); // Menghapus marker yang ada sebelumnya
+
+      const position = await this.locationService.getCurrentLocation();
+      if (position) {
+        const newCenter = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        };
+        
+        this.center = newCenter; // Mengatur pusat peta ke lokasi baru
+        this.loadMap(); // Memuat ulang peta dengan lokasi baru
+        this.getAddress(newCenter.lat, newCenter.lng); // Mendapatkan alamat lokasi baru
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
   addMarker(location: any) {
     let googleMaps: any = this.googleMaps;
-    const icon = {
-      url: 'assets/icon/location-pin.png',
-      scaledSize: new googleMaps.Size(50, 50), 
-    };
     this.marker = new googleMaps.Marker({
       position: location,
       map: this.map,
-      icon: icon,
-      draggable: true,
+      draggable: false,
       animation: googleMaps.Animation.DROP
-    });
-    this.mapListener = this.googleMaps.event.addListener(this.marker, 'dragend', () => {
-      this.getAddress(this.marker.position.lat(), this.marker.position.lng());
     });
   }
 

@@ -11,12 +11,13 @@
   <div class="content-wrapper">
     <app-map [center]="center" [update]="update" (location)="fetchLocation($event)"></app-map>
     <div class="button-container">
-      <div class="text-center mb-4">
+      <div class="text-center mb-4 text-black">
         Apakah Lokasi Anda Sudah Sesuai?
       </div>
       <div class="flex">
-        <button class="bg-gray-300 p-3 rounded-md text-black w-full">Refresh</button>
-        <button class="bg-default p-3 rounded-md text-white ml-2 w-full">Ya</button>
+        <button class="bg-gray-300 p-3 rounded-md text-black w-full" (click)="refreshLocation()">Refresh</button>
+        <button  *ngIf="isLocationFetched" class="bg-default p-3 rounded-md text-white ml-2 w-full">Ya</button>
+        <button *ngIf="!isLocationFetched" class="bg-non-submit p-3 rounded-md text-white ml-2 w-full" [disabled]="true">Ya</button>
       </div>
     </div>
   </div>
