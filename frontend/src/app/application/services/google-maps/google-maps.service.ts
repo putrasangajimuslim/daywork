@@ -54,4 +54,24 @@ export class GoogleMapsService {
         });
     });
   }
+
+  getAddressOfficeWork(lat: number, lng: number): Promise<any> {
+    return new Promise((resolve, reject) => {
+      console.log(lat);
+      
+      this.http.get<any>(
+        `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${this.apiKey}`
+        )
+        .pipe(
+          map(geoData => {
+            if(!geoData || !geoData.results || geoData.results.length === 0) throw(null);
+            return geoData.results[0];
+          })
+        ).subscribe(data => {
+          resolve(data);
+        }, e => {
+          reject(e);
+        });
+    });
+  }
 }

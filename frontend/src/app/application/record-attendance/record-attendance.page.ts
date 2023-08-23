@@ -47,7 +47,8 @@ export class RecordAttendancePage implements OnInit {
           lat: address.lat,
           lng: address.lng
         };
-        console.log('center: ', this.center);
+        // console.log('center: ', this.center);
+        // console.log('address: ', address);
         
         this.update = true;
         this.location.lat = this.center.lat;
@@ -64,11 +65,6 @@ export class RecordAttendancePage implements OnInit {
         this.initForm();
       }
     });
-  }
-
-  refreshLocation() {
-    console.log('test');
-    
   }
 
   initForm(address?: any) {
@@ -98,8 +94,8 @@ export class RecordAttendancePage implements OnInit {
 
   fetchLocation(event: any) {
     this.location = event;
-    console.log('location: ', this.location);
-    console.log('event: ', event);
+    // console.log('location: ', this.location);
+    // console.log('event: ', event);
     this.isLocationFetched = true;
   }
   
