@@ -13,12 +13,11 @@ export class MapComponent  implements OnInit {
   googleMaps: any;
   map: any;
   marker: any;
-  isLocationFetched: boolean = false;
   @Input() update = false;
   @Input() center = { lat: 28.649944693035188, lng: 77.23961776224988 };
   @Output() location: EventEmitter<any> = new EventEmitter();
+  @Input() isLocationFetched: boolean = true;
   mapListener: any;
-  @Input() valuerefresh: boolean = false;
 
   constructor(
     private maps: GoogleMapsService,
@@ -28,11 +27,12 @@ export class MapComponent  implements OnInit {
 
   ngOnInit() {}
 
-  ngAfterViewInit() {
+  async ngAfterViewInit() {
     this.initMap();
   }
 
   async initMap() {
+    // this.isLocationFetched = true;
     try {
       if(!this.update) {
         const position = await this.locationService.getCurrentLocation();
@@ -43,7 +43,6 @@ export class MapComponent  implements OnInit {
           };
           await this.loadMap();
           this.getAddress(this.center.lat, this.center.lng);
-          this.getAddressOfficeWork();
         }
       } else {
         await this.loadMap();
@@ -54,42 +53,6 @@ export class MapComponent  implements OnInit {
       // this.getAddress(this.center.lat, this.center.lng);
     }
   }
-
-  // async loadMap() {
-  //   try {
-  //     let googleMaps: any = await this.maps.loadGoogleMaps();
-  //     this.googleMaps = googleMaps;
-  //     const style = [
-  //       {
-  //         featureType: 'all',
-  //         elementType: 'all',
-  //         stylers: [
-  //           { saturation: -100 }
-  //         ]
-  //       }
-  //     ];
-  //     const mapEl = this.mapElementRef.nativeElement;
-  //     const location = new googleMaps.LatLng(this.center.lat, this.center.lng);
-  //     this.map = new googleMaps.Map(mapEl, {
-  //       center: location,
-  //       zoom: 18,
-  //       scaleControl: false,
-  //       streetViewControl: false,
-  //       zoomControl: false,
-  //       overviewMapControl: false,
-  //       mapTypeControl: false,
-  //       fullscreenControl: false,
-  //       mapTypeControlOptions: {
-  //         mapTypeIds: [googleMaps.MapTypeId.ROADMAP, 'SwiggyClone']
-  //       }
-  //     });
-      
-  //     this.renderer.addClass(mapEl, 'visible');
-  //     this.addMarker(location);
-  //   } catch(e) {
-  //     console.log(e);
-  //   }
-  // }
 
   async loadMap() {
     try {
@@ -127,6 +90,7 @@ export class MapComponent  implements OnInit {
                 (position) => {
                   const myLocation = new googleMaps.LatLng(position.coords.latitude, position.coords.longitude);
                   this.map.setCenter(myLocation);
+                  this.map.setZoom(15);
                   this.addMarker(myLocation);
                 },
                 (error) => {
@@ -137,6 +101,39 @@ export class MapComponent  implements OnInit {
               console.error('Geolocation is not supported by this browser.');
             }
       });
+
+      const addressData = await this.maps.getAddressOfficeWork();
+
+      this.renderer.addClass(mapEl, 'visible');
+
+      setTimeout(() => {
+        this.map.setZoom(15);
+        this.addMarker(location);
+
+        const loc = {
+          location_name: addressData.address_components[0].short_name,
+          address: addressData.formatted_address,
+          lat: addressData.geometry.location.lat,
+          lng: addressData.geometry.location.lng,
+        };
+  
+        const svgMarker = {
+          path: "M-1.547 12l6.563-6.609-1.406-1.406-5.156 5.203-2.063-2.109-1.406 1.406zM0 0q2.906 0 4.945 2.039t2.039 4.945q0 1.453-0.727 3.328t-1.758 3.516-2.039 3.070-1.711 2.273l-0.75 0.797q-0.281-0.328-0.75-0.867t-1.688-2.156-2.133-3.141-1.664-3.445-0.75-3.375q0-2.906 2.039-4.945t4.945-2.039z",
+          fillColor: "blue",
+          fillOpacity: 0.6,
+          strokeWeight: 0,
+          rotation: 0,
+          scale: 2,
+          anchor: new googleMaps.Point(0, 20),
+        };
+  
+        const marker2  = new googleMaps.Marker({
+          position: new googleMaps.LatLng(loc.lat, loc.lng),
+          icon: svgMarker,
+          map: this.map,
+        });
+        
+      }, 3000);
 
       // Aktifkan My Location
       // const myLocationButton = document.createElement('button');
@@ -162,12 +159,11 @@ export class MapComponent  implements OnInit {
       //   }
       // });
   
-      this.renderer.addClass(mapEl, 'visible');
+      // const marker2Icon = {
+      //   url: 'assets/icon/location-pin.png',
+      //   size: new googleMaps.Size(20, 32),
+      // };
 
-      setTimeout(() => {
-        this.map.setZoom(15); // Set zoom to a higher value (adjust as needed)
-        this.addMarker(location);
-      }, 3000);
     } catch(e) {
       console.log(e);
     }
@@ -193,55 +189,36 @@ export class MapComponent  implements OnInit {
     }
   }
 
-  addMarker(location: any) {
+  async addMarker(location: any) {
     let googleMaps: any = this.googleMaps;
     this.marker = new googleMaps.Marker({
       position: location,
       map: this.map,
       draggable: false,
-      animation: googleMaps.Animation.DROP
     });
   }
 
   async getAddress(lat: any, lng: any) {
     try {
       const result = await this.maps.getAddress(lat, lng);
-      // console.log(result);
       const loc = {
         location_name: result.address_components[0].short_name,
         address: result.formatted_address,
         lat,
         lng
       };
-      console.log(loc);
       this.location.emit(loc);
     } catch(e) {
       console.log(e);
     }
   }
 
-  async getAddressOfficeWork() {
-    try {
-      const lat = 2411936951098985;
-      const lng = 106.82602450682168;
-      const result = await this.maps.getAddressOfficeWork(lat, lng);
-      console.log(result);
-      
-      // console.log(result);
-      const loc = {
-        location_name: result.address_components[0].short_name,
-        address: result.formatted_address,
-        lat,
-        lng
-      };
-      console.log(loc);
-      this.location.emit(loc);
-    } catch(e) {
-      console.log(e);
-    }
+  async confirmLocation() {
+    console.log('test');
+    
   }
 
-  ngOnDestroy() {
+  async ngOnDestroy() {
     if(!this.mapListener) this.googleMaps.event.removeListener(this.mapListener);
   }
 

@@ -12,7 +12,7 @@ export class RecordAttendancePage implements OnInit {
 
   isSubmitted = false;
   location: any = {};
-  isLocationFetched!: boolean;
+  isLocationFetched: boolean = false;
   center: any;
   update!: boolean;
   id: any;

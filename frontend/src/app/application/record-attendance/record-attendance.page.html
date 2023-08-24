@@ -9,7 +9,7 @@
 
 <ion-content [fullscreen]="true">
   <div class="content-wrapper">
-    <app-map [center]="center" [update]="update" (location)="fetchLocation($event)"></app-map>
+    <app-map [center]="center" [update]="update" [isLocationFetched]="isLocationFetched" (location)="fetchLocation($event)"></app-map>
     <!-- <div class="button-container">
       <div class="text-center mb-4 text-black">
         Apakah Lokasi Anda Sudah Sesuai?
