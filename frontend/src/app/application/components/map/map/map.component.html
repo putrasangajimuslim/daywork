@@ -1,12 +1,16 @@
 <div class="map" #map></div>
+<!-- <div id="cameraPreview" class="cameraPreview">
+
+</div> -->
 
 <div class="button-container">
+    <img> 
     <div class="text-center mb-4 text-black">
         Apakah Lokasi Anda Sudah Sesuai?
     </div>
     <div class="flex">
         <button class="bg-gray-300 p-3 rounded-md text-black w-full" id="btnRefresh">Refresh</button>
-        <button  *ngIf="isLocationFetched" class="bg-default p-3 rounded-md text-white ml-2 w-full" (click)="confirmLocation()">Ya</button>
+        <button  *ngIf="isLocationFetched" class="bg-default p-3 rounded-md text-white ml-2 w-full" (click)="openCamera()">Ya</button>
         <button *ngIf="!isLocationFetched" class="bg-non-submit p-3 rounded-md text-white ml-2 w-full" [disabled]="true" id="recordPicAndGeo">Ya</button>
     </div>
 </div>

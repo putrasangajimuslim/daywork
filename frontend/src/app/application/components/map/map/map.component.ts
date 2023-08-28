@@ -1,6 +1,10 @@
 import { Component, ElementRef, EventEmitter, Input, OnInit, Output, Renderer2, ViewChild, SimpleChanges } from '@angular/core';
 import { GoogleMapsService } from 'src/app/application/services/google-maps/google-maps.service';
 import { LocationService } from 'src/app/application/services/location/location.service';
+import { CameraPreview, CameraPreviewOptions, CameraPreviewPictureOptions } from '@capacitor-community/camera-preview';
+import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
+import { DomSanitizer } from '@angular/platform-browser';
+import axios from 'axios';
 
 @Component({
   selector: 'app-map',
@@ -18,14 +22,42 @@ export class MapComponent  implements OnInit {
   @Output() location: EventEmitter<any> = new EventEmitter();
   @Input() isLocationFetched: boolean = true;
   mapListener: any;
+  // image = null;
+  imageSource: any;
 
   constructor(
     private maps: GoogleMapsService,
     private renderer: Renderer2,
-    private locationService: LocationService
+    private locationService: LocationService,
+    private domSanitizer: DomSanitizer,
   ) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    // await this.loadMap();
+
+    // try {
+    //   const position = await this.locationService.getCurrentLocation();
+    //   if (position) {
+    //     this.center = {
+    //       lat: position.coords.latitude,
+    //       lng: position.coords.longitude
+    //     };
+    //     this.recenterMap();
+    //   }
+    // } catch (e) {
+    //   console.log(e);
+    // }
+  }
+
+  // async recenterMap() {
+  //   if (this.map && this.center) {
+  //     const googleMaps: any = this.googleMaps;
+  //     const newCenter = new googleMaps.LatLng(this.center.lat, this.center.lng);
+  //     this.map.setCenter(newCenter);
+  //     this.map.setZoom(15);
+  //     this.addMarker(newCenter);
+  //   }
+  // }
 
   async ngAfterViewInit() {
     this.initMap();
@@ -41,6 +73,7 @@ export class MapComponent  implements OnInit {
             lat: position.coords.latitude,
             lng: position.coords.longitude
           };
+          
           await this.loadMap();
           this.getAddress(this.center.lat, this.center.lng);
         }
@@ -69,6 +102,7 @@ export class MapComponent  implements OnInit {
       ];
       const mapEl = this.mapElementRef.nativeElement;
       const location = new googleMaps.LatLng(this.center.lat, this.center.lng);
+      
       this.map = new googleMaps.Map(mapEl, {
         center: location,
         zoom: 10,
@@ -85,12 +119,14 @@ export class MapComponent  implements OnInit {
 
       const refreshButton = document.getElementById('btnRefresh');
       refreshButton?.addEventListener('click', () => {
+            this.removeMarker();
             if (navigator.geolocation) {
               navigator.geolocation.getCurrentPosition(
                 (position) => {
                   const myLocation = new googleMaps.LatLng(position.coords.latitude, position.coords.longitude);
+                  
                   this.map.setCenter(myLocation);
-                  this.map.setZoom(15);
+                  this.map.setZoom(16);
                   this.addMarker(myLocation);
                 },
                 (error) => {
@@ -107,7 +143,7 @@ export class MapComponent  implements OnInit {
       this.renderer.addClass(mapEl, 'visible');
 
       setTimeout(() => {
-        this.map.setZoom(15);
+        this.map.setZoom(16);
         this.addMarker(location);
 
         const loc = {
@@ -189,6 +225,12 @@ export class MapComponent  implements OnInit {
     }
   }
 
+  async removeMarker() {
+    if (this.marker) {
+      this.marker.setMap(null);
+    }
+  }
+
   async addMarker(location: any) {
     let googleMaps: any = this.googleMaps;
     this.marker = new googleMaps.Marker({
@@ -213,9 +255,64 @@ export class MapComponent  implements OnInit {
     }
   }
 
-  async confirmLocation() {
-    console.log('test');
+  async openCamera() {
+    // const cameraPreviewOptions: CameraPreviewOptions = {
+    //   position: 'rear',
+    //   parent: 'cameraPreview',
+    //   className: 'cameraPreview',
+    // };
+    // CameraPreview.start(cameraPreviewOptions);
+
+    // const image = await Camera.getPhoto({
+    //   resultType: CameraResultType.Base64,
+    //   source: CameraSource.Camera,
+    //   quality: 100
+    // });
+
+    // // this.imageSource = this.domSanitizer.bypassSecurityTrustUrl(image.webPath ? image.webPath: "");
+    // this.imageSource = image.base64String
+    // // const imageFormat = image.format
+    // // const encryptData = this.encryptData.encryptData(this.imageSource);
+    // // const images = encryptData+'.'+imageFormat;
     
+    // var lat = this.center.lat;
+    // var lng = this.center.lng;
+    
+    // const url = 'http://localhost:8000/api/get-data-waktu-kehadiran';
+
+    // const formData = new FormData();
+    // formData.append('lat', lat.toString());
+    // formData.append('lng', lng.toString());
+    // formData.append('images', image.base64String);
+
+    // try {
+    //   const response = await axios.post(url, formData);
+    // } catch (error) {
+    //   console.error('Error:', error);
+    // }
+
+    const result = await this.maps.getAddress(this.center.lat, this.center.lng);
+
+    try {
+      const image = await Camera.getPhoto({
+        resultType: CameraResultType.DataUrl,
+        source: CameraSource.Camera,
+        quality: 100
+      });
+
+      this.imageSource = image.dataUrl;
+      const formData = new FormData();
+      formData.append('image', this.imageSource);
+      formData.append('lat', this.center.lat.toString());
+      formData.append('lng', this.center.lng.toString());
+      formData.append('provinsi', result.address_components[7].short_name);
+
+      const response = await axios.post('http://localhost:8000/api/get-data-waktu-kehadiran', formData);
+      console.log(response.data);
+      console.log(response.data.success);
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   async ngOnDestroy() {

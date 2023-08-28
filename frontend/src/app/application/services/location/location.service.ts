@@ -16,7 +16,7 @@ export class LocationService {
     const options: PositionOptions = {
       maximumAge: 3000,
       timeout: 10000,
-      enableHighAccuracy: false
+      enableHighAccuracy: true
     };
     return await Geolocation.getCurrentPosition(options);
   }
