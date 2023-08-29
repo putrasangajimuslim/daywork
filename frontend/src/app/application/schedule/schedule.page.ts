@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CalendarMode } from 'ionic7-calendar';
 
 @Component({
   selector: 'app-schedule',
@@ -6,6 +7,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./schedule.page.scss'],
 })
 export class SchedulePage implements OnInit {
+
+  calendar = {
+    mode: 'month' as CalendarMode,
+    currentDate: new Date(),
+  };
+
+  viewTitle = '';
 
   constructor() { }
 

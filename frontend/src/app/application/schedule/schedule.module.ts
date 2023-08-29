@@ -8,12 +8,15 @@ import { SchedulePageRoutingModule } from './schedule-routing.module';
 
 import { SchedulePage } from './schedule.page';
 
+import { NgCalendarModule } from 'ionic7-calendar';
+
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    SchedulePageRoutingModule
+    SchedulePageRoutingModule,
+    NgCalendarModule
   ],
   declarations: [SchedulePage]
 })

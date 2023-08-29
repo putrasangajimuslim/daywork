@@ -1,13 +1,36 @@
-<!-- <ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>schedule</ion-title>
+<ion-header class="bg-default">
+  <ion-toolbar color="app-default">
+    <ion-title class="text-white text-center text-2xl">schedule</ion-title>
   </ion-toolbar>
-</ion-header> -->
+</ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
+  <!-- <ion-header collapse="condense">
     <ion-toolbar>
       <ion-title size="large">schedule</ion-title>
     </ion-toolbar>
-  </ion-header>
+  </ion-header> -->
+  <!-- <ion-row>
+    <ion-col>
+      <ion-button (click)="calendar.mode = 'month'">Month</ion-button>
+    </ion-col>
+    <ion-col>
+      <ion-button (click)="calendar.mode = 'week'">Week</ion-button>
+    </ion-col>
+    <ion-col>
+      <ion-button (click)="calendar.mode = 'day'">Day</ion-button>
+    </ion-col>
+  </ion-row> -->
+
+  <ion-row>
+    <ion-col size="2">
+      <!-- <ion-icon name="filter-outline"></ion-icon> -->
+    </ion-col>
+    <ion-col size="8">
+      <p class="ion-text-center text-base my-4">{{ viewTitle }}</p>
+    </ion-col>
+    <ion-col size="2"></ion-col>
+  </ion-row>
+
+  <calendar [calendarMode]="calendar.mode" (onTitleChanged)="viewTitle = $event"></calendar>
 </ion-content>
