@@ -1,0 +1,22 @@
+<ion-header [translucent]="true" class="bg-default">
+  <div color="app-default" class="w-full p-2 flex">
+    <!-- <ion-icon name="close" slot="icon-only" class="text-white text-2xl mr-2" (click)="close()"></ion-icon> -->
+    <ion-title class="text-white text-center text-base">New Schedule</ion-title>
+    <!-- <ion-icon name="checkmark" slot="icon-only" class="text-white text-2xl mr-2"></ion-icon> -->
+  </div>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-item>
+    <ion-input placeholder="Apa yang ingin kamu lakukan?" [(ngModel)]="event.title"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-input placeholder="Deskripsi" [(ngModel)]="event.desc"></ion-input>
+  </ion-item>
+
+  <div class="flex justify-between p-4 border-gray-300 absolute bottom-0 left-0 w-full" style="border-top-width: 1px;">
+    <span class="text-base text-gray-600" (click)="close()">Batal</span>
+    <span class="text-base color-default">Selesai</span>
+  </div>
+</ion-content>

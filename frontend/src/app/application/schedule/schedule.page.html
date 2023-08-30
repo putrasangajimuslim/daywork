@@ -1,7 +1,16 @@
 <ion-header class="bg-default">
-  <ion-toolbar color="app-default">
+  <!-- <ion-toolbar color="app-default">
     <ion-title class="text-white text-center text-2xl">Schedule</ion-title>
-  </ion-toolbar>
+    <ion-button slot="end">
+      <ion-button color="none">
+        <ion-icon name="add" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-button>
+  </ion-toolbar> -->
+  <div color="app-default" class="w-full p-2 flex">
+    <ion-title class="text-white text-center text-2xl">Schedule</ion-title>
+    <ion-icon name="add" slot="icon-only" class="text-white text-2xl mr-2" (click)="openModalAddSchedule()"></ion-icon>
+  </div>
 </ion-header>
 
 <ion-content [fullscreen]="true">
@@ -32,5 +41,7 @@
     <ion-col size="2"></ion-col>
   </ion-row>
 
-  <calendar [calendarMode]="calendar.mode" (onTitleChanged)="viewTitle = $event"></calendar>
+  <calendar [eventSource]="eventSource"
+  [calendarMode]="calendar.mode"
+  [currentDate]="calendar.currentDate" (onTitleChanged)="viewTitle = $event"></calendar>
 </ion-content>
