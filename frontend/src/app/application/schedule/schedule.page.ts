@@ -25,30 +25,11 @@ export class SchedulePage implements OnInit {
   async openModalAddSchedule() {
     const modal = await this.modalCtrl.create({
       component: AddSchedulePage,
-      cssClass: 'cal-modal-add-schedule',
+      cssClass: 'schedule-modal',
       backdropDismiss: false,
     });
 
     await modal.present();
-
-    modal.onDidDismiss().then((result) => {
-      if (result.data && result.data.event) {
-        let event = result.data.event;
-        if (event.allDay) {
-          let start = event.startTime;
-          event.startTime = new Date(
-            Date.UTC(
-              start.getUTCFullYear(),
-              start.getUTCMonth(),
-              start.getUTCDate()
-            )
-          );
-        }
-        // Sekarang Anda dapat melakukan sesuatu dengan event yang telah diubah
-        // Misalnya, menyimpannya ke penyimpanan atau memperbarui tampilan.
-        console.log('Modified event:', event);
-      }
-    });    
   }
 
   ngOnInit() {

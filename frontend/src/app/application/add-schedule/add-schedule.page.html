@@ -1,27 +1,31 @@
-<ion-header [translucent]="true" class="bg-default">
-  <div color="app-default" class="w-full p-2 flex">
-    <!-- <ion-icon name="close" slot="icon-only" class="text-white text-2xl mr-2" (click)="close()"></ion-icon> -->
-    <ion-title class="text-white text-center text-base">New Schedule</ion-title>
-    <!-- <ion-icon name="checkmark" slot="icon-only" class="text-white text-2xl mr-2"></ion-icon> -->
-  </div>
-</ion-header>
 
 <ion-content [fullscreen]="true">
+  <div class="p-4 flex items-center justify-between">
+    <div class="flex">
+      <ion-icon name="file-tray-full-outline" class="color-default text-2xl mr-2"></ion-icon>
+      <p class="color-default">New Schedule</p>
+    </div>
+
+    <ion-icon name="close-outline" class="bg-gray-200 rounded-full text-black text-lg p-1 cursor-pointer" (click)="close()"></ion-icon>
+  </div>
   <div class="p-4">
     <input type="text"
           class="w-full custom-input mb-2"
           placeholder="Apa yang ingin kamu lakukan?" [(ngModel)]="event.title"/>
-    <textarea class="w-full custom-input" placeholder="Deskripsi" [(ngModel)]="event.desc" cols="2" rows="2"></textarea>
-    <div class="flex justify-between my-2">
+    <textarea class="w-full custom-input" placeholder="Deskripsi" [(ngModel)]="event.desc" cols="4" rows="4"></textarea>
+    <div class="flex justify-between my-4">
       <span class="text-gray-600">Mulai</span>
-      <span class="text-gray-600" (click)="showStart = !showStart">Pilih Tanggal</span>
+      <span class="text-gray-600">Pilih Tanggal</span>
     </div>
 
-    <ion-datetime *ngIf="showStart"></ion-datetime>
+    <div class="flex">
+      <button class="bg-gray-400 w-6/12 text-white p-3 rounded-md" (click)="close()">Batal</button>
+      <button class="bg-default w-6/12 text-white p-3 rounded-md ml-2">Selesai</button>
+    </div>
   </div>
 
-  <div class="flex justify-between p-4 border-gray-300 absolute bottom-0 left-0 w-full" style="border-top-width: 1px;">
+  <!-- <div class="flex justify-between p-4 border-gray-300 absolute bottom-0 left-0 w-full" style="border-top-width: 1px;">
     <span class="text-base text-gray-600" (click)="close()">Batal</span>
     <span class="text-base color-default">Selesai</span>
-  </div>
+  </div> -->
 </ion-content>
