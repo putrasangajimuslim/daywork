@@ -7,13 +7,18 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-item>
-    <ion-input placeholder="Apa yang ingin kamu lakukan?" [(ngModel)]="event.title"></ion-input>
-  </ion-item>
+  <div class="p-4">
+    <input type="text"
+          class="w-full custom-input mb-2"
+          placeholder="Apa yang ingin kamu lakukan?" [(ngModel)]="event.title"/>
+    <textarea class="w-full custom-input" placeholder="Deskripsi" [(ngModel)]="event.desc" cols="2" rows="2"></textarea>
+    <div class="flex justify-between my-2">
+      <span class="text-gray-600">Mulai</span>
+      <span class="text-gray-600" (click)="showStart = !showStart">Pilih Tanggal</span>
+    </div>
 
-  <ion-item>
-    <ion-input placeholder="Deskripsi" [(ngModel)]="event.desc"></ion-input>
-  </ion-item>
+    <ion-datetime *ngIf="showStart"></ion-datetime>
+  </div>
 
   <div class="flex justify-between p-4 border-gray-300 absolute bottom-0 left-0 w-full" style="border-top-width: 1px;">
     <span class="text-base text-gray-600" (click)="close()">Batal</span>

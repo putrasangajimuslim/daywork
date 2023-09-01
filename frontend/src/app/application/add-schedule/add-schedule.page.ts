@@ -13,6 +13,8 @@ export class AddSchedulePage implements OnInit {
     desc: '',
   }
 
+  showStart: boolean = false;
+  
   constructor(private modalCtrl: ModalController) { }
 
   close() {
