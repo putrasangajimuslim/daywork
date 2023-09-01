@@ -53,3 +53,14 @@
     --border-radius: 10px;
     padding: 25px;
 }
+
+.custom-input {
+    border: none;
+    border-bottom: 1px solid #b4b4b4;
+}
+
+.custom-input:focus {
+    outline: none !important;
+    box-shadow: none !important;
+    border-bottom: 1px solid #b4b4b4 !important;
+}
