@@ -256,41 +256,6 @@ export class MapComponent  implements OnInit {
   }
 
   async openCamera() {
-    // const cameraPreviewOptions: CameraPreviewOptions = {
-    //   position: 'rear',
-    //   parent: 'cameraPreview',
-    //   className: 'cameraPreview',
-    // };
-    // CameraPreview.start(cameraPreviewOptions);
-
-    // const image = await Camera.getPhoto({
-    //   resultType: CameraResultType.Base64,
-    //   source: CameraSource.Camera,
-    //   quality: 100
-    // });
-
-    // // this.imageSource = this.domSanitizer.bypassSecurityTrustUrl(image.webPath ? image.webPath: "");
-    // this.imageSource = image.base64String
-    // // const imageFormat = image.format
-    // // const encryptData = this.encryptData.encryptData(this.imageSource);
-    // // const images = encryptData+'.'+imageFormat;
-    
-    // var lat = this.center.lat;
-    // var lng = this.center.lng;
-    
-    // const url = 'http://localhost:8000/api/get-data-waktu-kehadiran';
-
-    // const formData = new FormData();
-    // formData.append('lat', lat.toString());
-    // formData.append('lng', lng.toString());
-    // formData.append('images', image.base64String);
-
-    // try {
-    //   const response = await axios.post(url, formData);
-    // } catch (error) {
-    //   console.error('Error:', error);
-    // }
-
     const result = await this.maps.getAddress(this.center.lat, this.center.lng);
 
     try {

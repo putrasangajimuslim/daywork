@@ -44,6 +44,10 @@ const routes: Routes = [
     path: 'add-schedule',
     loadChildren: () => import('./add-schedule/add-schedule.module').then( m => m.AddSchedulePageModule)
   },
+  {
+    path: 'add-schedule-date',
+    loadChildren: () => import('./add-schedule-date/add-schedule-date.module').then( m => m.AddScheduleDatePageModule)
+  },
 ];
 
 @NgModule({

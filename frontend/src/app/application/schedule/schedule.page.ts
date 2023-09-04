@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { CalendarComponent, CalendarMode } from 'ionic7-calendar';
 import { AddSchedulePage } from '../add-schedule/add-schedule.page';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-schedule',
@@ -19,8 +20,17 @@ export class SchedulePage implements OnInit {
 
   eventSource = [];
   viewTitle = '';
+
+  newDataModal: any = [];
+
+  isBackdropDismissEnabled: boolean = false;
   
-  constructor(private modalCtrl: ModalController) { }
+  constructor(
+    private modalCtrl: ModalController,
+    private route: ActivatedRoute
+    ) { 
+    
+    }
 
   async openModalAddSchedule() {
     const modal = await this.modalCtrl.create({
@@ -29,7 +39,7 @@ export class SchedulePage implements OnInit {
       backdropDismiss: false,
     });
 
-    await modal.present();
+    modal.present();
   }
 
   ngOnInit() {

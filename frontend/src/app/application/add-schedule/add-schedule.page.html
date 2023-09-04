@@ -14,8 +14,9 @@
           placeholder="Apa yang ingin kamu lakukan?" [(ngModel)]="event.title"/>
     <textarea class="w-full custom-input" placeholder="Deskripsi" [(ngModel)]="event.desc" cols="4" rows="4"></textarea>
     <div class="flex justify-between my-4">
-      <span class="text-gray-600">Mulai</span>
-      <span class="text-gray-600">Pilih Tanggal</span>
+      <!-- <span class="text-gray-600">Mulai</span> -->
+      <ion-text class="text-gray-600">Mulai</ion-text>
+      <ion-text class="text-gray-600" (click)="selectDate()">{{ dateTimeSelected }}</ion-text>
     </div>
 
     <div class="flex">

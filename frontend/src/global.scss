@@ -26,6 +26,7 @@
 @import "@ionic/angular/css/flex-utils.css";
 
 @import 'swiper/css';
+@import "@ionic/angular/css/ionic-swiper";
 
 * {
     margin: 0;
@@ -48,8 +49,8 @@
     color: #FFFF !important;
 }
 
-.cal-modal-add-schedule {
-    --height: 100%;
+.modal-add-schedule-date {
+    --height: 70%;
     --border-radius: 10px;
     padding: 25px;
 }
