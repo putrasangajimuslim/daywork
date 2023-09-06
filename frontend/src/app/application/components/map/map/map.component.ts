@@ -112,11 +112,8 @@ export class MapComponent  implements OnInit {
         overviewMapControl: false,
         mapTypeControl: false,
         fullscreenControl: false,
-        mapTypeControlOptions: {
-          mapTypeIds: [googleMaps.MapTypeId.ROADMAP, 'SwiggyClone']
-        }
       });
-
+    
       const refreshButton = document.getElementById('btnRefresh');
       refreshButton?.addEventListener('click', () => {
             this.removeMarker();
@@ -125,9 +122,32 @@ export class MapComponent  implements OnInit {
                 (position) => {
                   const myLocation = new googleMaps.LatLng(position.coords.latitude, position.coords.longitude);
                   
+                  const marker = new googleMaps.Marker({
+                    position: location,
+                    icon: {
+                      path: googleMaps.SymbolPath.CIRCLE,
+                      scale: 5, // Anda dapat menyesuaikan skala sesuai kebutuhan
+                      fillColor: "#166684", // Warna lingkaran
+                      fillOpacity: 0.7, // Opasitas lingkaran
+                      strokeWeight: 1, // Ketebalan tepi lingkaran
+                    },
+                    map: this.map,
+                  });
+
+                  const circle = new googleMaps.Circle({
+                    map: this.map,
+                    center: location,
+                    radius: 1000, // Ganti dengan radius yang sesuai dalam meter
+                    strokeColor: "#166684",
+                    strokeOpacity: 0.7,
+                    strokeWeight: 1,
+                    fillColor: "#166684",
+                    fillOpacity: 0.2,
+                  });
+
                   this.map.setCenter(myLocation);
                   this.map.setZoom(16);
-                  this.addMarker(myLocation);
+                  // this.addMarker(myLocation);
                 },
                 (error) => {
                   console.error('Error getting location:', error);
@@ -137,22 +157,45 @@ export class MapComponent  implements OnInit {
               console.error('Geolocation is not supported by this browser.');
             }
       });
-
+    
       const addressData = await this.maps.getAddressOfficeWork();
-
+    
       this.renderer.addClass(mapEl, 'visible');
-
+    
       setTimeout(() => {
-        this.map.setZoom(16);
-        this.addMarker(location);
+        const marker = new googleMaps.Marker({
+          position: location,
+          icon: {
+            path: googleMaps.SymbolPath.CIRCLE,
+            scale: 10,
+            fillColor: "#166684",
+            fillOpacity: 0.7,
+            strokeWeight: 1,
+          },
+          map: this.map,
+        });
 
+        const circle = new googleMaps.Circle({
+          map: this.map,
+          center: location,
+          radius: 10, // Ganti dengan radius yang sesuai dalam meter
+          strokeColor: "#166684",
+          strokeOpacity: 0.7,
+          strokeWeight: 1,
+          fillColor: "blue",
+          fillOpacity: 0.2,
+        });
+
+        this.map.setZoom(16);
+        // this.addMarker(location);
+    
         const loc = {
           location_name: addressData.address_components[0].short_name,
           address: addressData.formatted_address,
           lat: addressData.geometry.location.lat,
           lng: addressData.geometry.location.lng,
         };
-  
+    
         const svgMarker = {
           path: "M-1.547 12l6.563-6.609-1.406-1.406-5.156 5.203-2.063-2.109-1.406 1.406zM0 0q2.906 0 4.945 2.039t2.039 4.945q0 1.453-0.727 3.328t-1.758 3.516-2.039 3.070-1.711 2.273l-0.75 0.797q-0.281-0.328-0.75-0.867t-1.688-2.156-2.133-3.141-1.664-3.445-0.75-3.375q0-2.906 2.039-4.945t4.945-2.039z",
           fillColor: "blue",
@@ -162,21 +205,32 @@ export class MapComponent  implements OnInit {
           scale: 2,
           anchor: new googleMaps.Point(0, 20),
         };
-  
+    
         const marker2  = new googleMaps.Marker({
           position: new googleMaps.LatLng(loc.lat, loc.lng),
           icon: svgMarker,
           map: this.map,
         });
+    
+        const radiusCircle = new googleMaps.Circle({
+          map: this.map,
+          center: loc,
+          radius: 200, // 200 in meters
+          fillColor: "#2196F3",
+          fillOpacity: 0.2,
+          strokeColor: "#2196F3",
+          strokeOpacity: 0.8,
+          strokeWeight: 2,
+        });
         
       }, 3000);
-
+    
       // Aktifkan My Location
       // const myLocationButton = document.createElement('button');
       // myLocationButton.textContent = 'My Location';
       // myLocationButton.classList.add('custom-map-control');
       // this.map.controls[googleMaps.ControlPosition.RIGHT_BOTTOM].push(myLocationButton);
-  
+    
       // // Tambahkan event listener untuk tombol My Location
       // myLocationButton.addEventListener('click', () => {
       //   if (navigator.geolocation) {
@@ -194,12 +248,12 @@ export class MapComponent  implements OnInit {
       //     console.error('Geolocation is not supported by this browser.');
       //   }
       // });
-  
+    
       // const marker2Icon = {
       //   url: 'assets/icon/location-pin.png',
       //   size: new googleMaps.Size(20, 32),
       // };
-
+    
     } catch(e) {
       console.log(e);
     }
