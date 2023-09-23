@@ -1,47 +1,40 @@
-<ion-header class="bg-default">
-  <!-- <ion-toolbar color="app-default">
-    <ion-title class="text-white text-center text-2xl">Schedule</ion-title>
-    <ion-button slot="end">
-      <ion-button color="none">
-        <ion-icon name="add" slot="icon-only"></ion-icon>
-      </ion-button>
-    </ion-button>
-  </ion-toolbar> -->
+<!-- <ion-header class="bg-default">
   <div color="app-default" class="w-full p-2 flex">
-    <ion-title class="text-white text-center text-2xl">Schedule</ion-title>
-    <ion-icon name="add" slot="icon-only" class="text-white text-2xl mr-2" (click)="openModalAddSchedule()"></ion-icon>
+    <ion-title class="text-white text-lg">Schedule</ion-title>
+    <ion-icon name="add" slot="icon-only" class="text-white text-2xl mr-2"></ion-icon>
   </div>
-</ion-header>
+</ion-header> -->
 
 <ion-content [fullscreen]="true">
-  <!-- <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">schedule</ion-title>
-    </ion-toolbar>
-  </ion-header> -->
-  <!-- <ion-row>
-    <ion-col>
-      <ion-button (click)="calendar.mode = 'month'">Month</ion-button>
-    </ion-col>
-    <ion-col>
-      <ion-button (click)="calendar.mode = 'week'">Week</ion-button>
-    </ion-col>
-    <ion-col>
-      <ion-button (click)="calendar.mode = 'day'">Day</ion-button>
-    </ion-col>
-  </ion-row> -->
+  <div class="p-2">
+    <p class="text-center color-default text-md my-4">{{ currentMonthName }}</p>
+  
+    <swiper-container [slidesPerView]="4" [spaceBetween]="6" [loop]="false" class="p-2" (slidechange)="onSlideChange($event)">
+      <swiper-slide [ngClass]="{
+        'date-selected': weekData.number === today,
+        'date-not-selected': weekData.number !== today
+      }" *ngFor="let weekData of weekDatas; let i = index" (click)="selectedDateSchedule(weekData)">
+        <p>{{ weekData.day }}</p>
+        <p>{{ weekData.number }}</p>
+      </swiper-slide>
+    </swiper-container>
 
-  <ion-row>
-    <ion-col size="2">
-      <!-- <ion-icon name="filter-outline"></ion-icon> -->
-    </ion-col>
-    <ion-col size="8">
-      <p class="ion-text-center text-base my-4 text-black">{{ viewTitle }}</p>
-    </ion-col>
-    <ion-col size="2"></ion-col>
-  </ion-row>
+    <ol class="relative border-l border-gray-200 dark:border-gray-700 m-8">                  
+      <li class="mb-10 ml-6">            
+          <span class="absolute flex items-center justify-center w-6 h-6 bg-default rounded-full -left-3 ring-8 ring-white dark:ring-gray-900 dark:bg-blue-900">
+          </span>
+          <time class="flex items-center block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">09.00 AM - 10.00 AM <span class="bg-default text-white text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-default dark:text-white ml-3">On Going</span></time>
+          <h3 class="mb-1 text-lg font-semibold text-gray-900 dark:text-white">Flowbite Application UI v2.0.0 </h3>
+          <p class="mb-4 text-base font-normal text-gray-500 dark:text-gray-400">Get access to over 20+ pages including a dashboard layout, charts, kanban board, calendar, and pre-order E-commerce & Marketing pages.</p>
+      </li>
+      <li class="mb-10 ml-6">
+          <span class="absolute flex items-center justify-center w-6 h-6 bg-slate-300 rounded-full -left-3 ring-8 ring-white dark:ring-gray-900 dark:bg-blue-900">
+          </span>
+          <time class="flex items-center block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">11.00 AM - 12.00 PM </time>
+          <h3 class="mb-1 text-lg font-semibold text-gray-900 dark:text-white">Flowbite Figma v1.3.0</h3>
+          <p class="text-base font-normal text-gray-500 dark:text-gray-400">All of the pages and components are first designed in Figma and we keep a parity between the two versions even as we update the project.</p>
+      </li>
+    </ol>
 
-  <calendar [eventSource]="eventSource"
-  [calendarMode]="calendar.mode"
-  [currentDate]="calendar.currentDate" (onTitleChanged)="viewTitle = $event"></calendar>
+  </div>
 </ion-content>

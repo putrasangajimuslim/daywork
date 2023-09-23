@@ -1,4 +1,4 @@
-import { LOCALE_ID, NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule, registerLocaleData } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
@@ -8,22 +8,14 @@ import { SchedulePageRoutingModule } from './schedule-routing.module';
 
 import { SchedulePage } from './schedule.page';
 
-import { NgCalendarModule } from 'ionic7-calendar';
-
-import localeId from '@angular/common/locales/id';
-registerLocaleData(localeId);
-
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
     SchedulePageRoutingModule,
-    NgCalendarModule
   ],
   declarations: [SchedulePage],
-  providers: [
-    { provide: LOCALE_ID, useValue: 'id-ID'}
-  ]
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class SchedulePageModule {}
