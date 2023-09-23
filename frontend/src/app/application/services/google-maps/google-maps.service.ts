@@ -8,7 +8,6 @@ import { map, switchMap } from 'rxjs/operators';
 export class GoogleMapsService {
 
   private apiKey: string = '';
-  // private apiKey: string = 'AIzaSyBOP90ra6mh1UJdPBEmH7W_A_HcZXSaDxU';
   constructor(private http: HttpClient) { }
 
   loadGoogleMaps(): Promise<any> {
